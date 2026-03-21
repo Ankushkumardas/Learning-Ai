@@ -1,0 +1,21 @@
+{
+  "name": "1st_ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon token.js"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^1.44.0",
+    "dotenv": "^17.3.1",
+    "js-tiktoken": "^1.0.21",
+    "nodemon": "^3.1.14",
+    "openai": "^6.27.0"
+  }
+}

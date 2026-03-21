@@ -1,0 +1,1 @@
+function add(){ let t=document.getElementById('task').value; let l=document.getElementById('list'); let i=document.createElement('li'); i.innerHTML=t+' <button onclick=this.parentElement.remove()>X</button>'; l.appendChild(i); } 
