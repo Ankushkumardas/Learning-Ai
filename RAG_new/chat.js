@@ -19,13 +19,13 @@ async function chat(query) {
     },
   );
 
-  //k is used to get teh relevant 3 chunks from teh vector db and teh content too with teh chunk
+  //k is used to get teh relevant 3 chunks from teh vector db and teh content too with teh  chunk
 
   const retriever = vectorstore.asRetriever({ k: 3 });
   const docs = await retriever.invoke(query);
 
   const contextText = docs.map((doc) => doc.pageContent).join("\n\n");
-
+ 
   const systemprompt = `
 You are an AI assistant.
 Answer ONLY from the given context.
