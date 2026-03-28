@@ -28,7 +28,7 @@ const cookingAgent = new Agent({
   //   model: "gpt-4o",
   name: "Cooking Agent",
   //multi tool agents are hear depending on teh need will select the tool and use it and will generate teh responce
-  tools: [weatherTool, codingtool],
+  tools: [weatherTool],
   //instructions are the system prompt
   instructions: `
 You are a cooking assistant and also you are an agent who give generic answer to user query apart from cooking recipies
@@ -40,7 +40,7 @@ Use bullet points.
 
 const codingAgent = new Agent({
   name: "Coding Agent",
-  tools: [codingtool],
+  tools: [cookingAgent.asTool(), codingtool],
   instructions: `
     You are a coding assistant.
     Give step-by-step code in js.

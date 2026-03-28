@@ -44,6 +44,20 @@ State (memory between steps)
 Graph-based workflows
 Multi-step reasoning
 
-👉 Think:
+👉 Think:Flowchart-based AI system
 
-Flowchart-based AI system
+<!--  -->
+
+for teh HandOff we have a limitation as ---> and also using gateway agent to chose wich agent the query of user show go
+
+if use query is related to cooking then it will go to cooking agent and if it is related to coding then it will go to coding agent---> but if user ask to code and cook at the same time it wont work parallely and it is temorary
+
+this can we temprarrily solves as if we have teh cooking tool as a toll under teh coding agent as a tool we can somehow solve this issue
+
+<!-- --- -->
+
+current industry do not uses gateway fucntionalty for choosing agent it making agent to do a precise work onkly on a neashe
+
+as of know we are using gateway agent -->as which agent should solve the query but we have a prblem in that to --> if
+
+**Computer use tool of open_ai
