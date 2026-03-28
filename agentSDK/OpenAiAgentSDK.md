@@ -60,4 +60,4 @@ current industry do not uses gateway fucntionalty for choosing agent it making a
 
 as of know we are using gateway agent -->as which agent should solve the query but we have a prblem in that to --> if
 
-**Computer use tool of open_ai
+**Computer use tool of open_ai-->\to get you browser access or you could say screen acces ans perform accctions dependion on condition we can use -->ex: playwrite,browser-use,chromium
