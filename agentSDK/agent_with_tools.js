@@ -1,6 +1,7 @@
 import { Agent, run, tool } from "@openai/agents";
 import { z } from "zod";
 import dotenv from "dotenv";
+import { RECOMMENDED_PROMPT_PREFIX } from "@openai/agents-core/extensions";
 dotenv.config();
 
 const weatherTool = tool({
@@ -50,10 +51,13 @@ const codingAgent = new Agent({
 });
 
 //thi sagent will tell to tak or pass teh request to which agent to process teh query --> agent to agent
-const GatewayAgent = new Agent.create({
+const GatewayAgent = Agent.create({
   name: "gaetwayagent",
-  instructions:
-    "you determin which agent to choose to perform teh query of user accordngly ",
+  //if you do nto want to write thi sinstruction for all the agenst that you make and everytime we have a built in soltion
+  // "RECOMMENDED_PROMPT_PREFIX"
+  instructions: `${RECOMMENDED_PROMPT_PREFIX}
+  you have a list of handoffs which you need to use to handoff the current user query  to us eteh agent.
+     you can use teh codingAgent if teh user asks query relaetd to coding and if query asks for cooking you can use teh cookingAgent `,
   handoffs: [cookingAgent, codingAgent],
 });
 
@@ -61,6 +65,8 @@ async function ChatwithAgent(query) {
   //   const result = await run(cookingAgent, query);
   const result = await run(GatewayAgent, query);
   console.log(result);
+  console.log(result.history);
+  console.log(result.lastAgent.name);
 }
 ChatwithAgent(" I want to know teh weather of Assam?");
 // -->will call the weather tool and get teh weather info

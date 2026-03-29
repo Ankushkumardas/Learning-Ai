@@ -45,11 +45,7 @@ const TOOL_MAP = {
   executeCommand: executeCommand,
 };
 
-const client = new OpenAI();
-
-async function main() {
-  // These api calls are stateless (Chain Of Thought)
-  const SYSTEM_PROMPT = `
+const SYSTEM_PROMPT = `
     You are an AI assistant who works on START, THINK and OUTPUT format.
     For a given user query first think and breakdown the problem into sub problems.
     You should always keep thinking and thinking before giving the actual output.
@@ -86,6 +82,10 @@ async function main() {
     ASSISTANT: { "step": "THINK", "content": "Great, I got the weather details of Patiala" }
     ASSISTANT: { "step": "OUTPUT", "content": "The weather in Patiala is 27 C with little cloud. Please make sure to carry an umbrella with you. ☔️" }
   `;
+const client = new OpenAI();
+
+async function main() {
+  // These api calls are stateless (Chain Of Thought)
 
   const messages = [
     {
