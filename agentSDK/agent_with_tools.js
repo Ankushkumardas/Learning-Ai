@@ -7,6 +7,8 @@ dotenv.config();
 const weatherTool = tool({
   name: "get_current_weather",
   description: "This tool gets the current weather of a city",
+  //below is used for human-in-teh loop does a halt and do not run thi stool automatically use user permission tahn on output do the exectuion 
+  needsApproval: true,
   parameters: z.object({}),
   execute: async () => {
     return "weather is sunny";
