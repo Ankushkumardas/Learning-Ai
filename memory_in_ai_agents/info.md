@@ -19,7 +19,7 @@ we have 3 types-->
 2.4. Semantic memory -->general knowledge not related to teh user as elon musk is teh ceo of x(twitter)
 
 to solve teh issue related to long term memory --> the soltuion is -->
--->few short prmopting + vecotr similarity + graphs
+-->few short prompting + vecotr similarity + graphs
 
 \*\*to understand in teh message session or cnversation to the llm to make sure what to keep in the long term what in teh short term what in teh factual /episodic/semantic memory --> we use an LLM with "Few Shot Prompting" and example and samples --> like hi STM , my name is Ank LTM, i preper to spek in englisg LTM and make teh LLM understand waht to keep in short term adn what to keep in teh long term than we --> if it is STM do nothing but if it is LTM than we need an LLM again to tell me if is Factual or Episodic or Semantic and store and use accordngly ---> with example for each we can train and make teh LLM smarter to strore them accodngly
 if Fatucal --> (LLM) to extract teh facts ---> store in mongo db
@@ -37,3 +37,119 @@ factual and episodic memeory are always about the user
 <!--  -->
 
 if we make or context space very big it can lead to --> hallucinations
+
+<!--  -->
+🏗️ Chatbot Memory Architecture
+
+                ┌──────────────────────┐
+                │      User Input       │
+                └─────────┬────────────┘
+                          │
+                          ▼
+                ┌──────────────────────┐
+                │   Memory Classifier   │  ← (LLM decides memory type)
+                └─────────┬────────────┘
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+│ Short-Term   │  │ Long-Term     │  │ Ignore / Temp│
+│ Memory       │  │ Memory        │  │ Data         │
+└──────┬───────┘  └──────┬───────┘  └──────────────┘
+       │                  │
+       │        ┌─────────┼──────────────┐
+       ▼        ▼         ▼              ▼
+   Context   Factual   Episodic      Semantic
+   (Cache)     (DB)      (Logs)        (Vector DB)
+
+                          │
+                          ▼
+                ┌──────────────────────┐
+                │  Memory Retriever     │
+                └─────────┬────────────┘
+                          │
+                          ▼
+                ┌──────────────────────┐
+                │        LLM            │
+                │ (Response Generator)  │
+                └─────────┬────────────┘
+                          │
+                          ▼
+                ┌──────────────────────┐
+                │     Response          │
+                └──────────────────────┘
+
+
+2. MEMORY TYPES (Clear Understanding)
+🔹 1. Short-Term Memory (Context)
+Stores current conversation
+Lives for session only
+Stored in:
+Cache (Redis / in-memory)
+Has TTL (expiry)
+
+👉 Example:
+
+“Apply leave tomorrow” → used only in current chat
+
+🔹 2. Long-Term Memory
+📌 (A) Factual Memory
+User-specific facts
+Stored in DB
+
+👉 Example:
+
+“User name = Ankush”
+“Default leave type = RH”
+📌 (B) Episodic Memory
+Past interactions / history
+Stored as logs
+
+👉 Example:
+
+“User applied leave on 10th April”
+📌 (C) Semantic Memory
+Meaningful embeddings (vector search)
+Stored in vector DB
+
+👉 Example:
+
+“User prefers casual leave for short trips”
+
+
+1. User sends message
+2. LLM analyzes intent
+3. Memory classifier decides:
+   - Short-term?
+   - Long-term?
+   - Ignore?
+
+4. Store accordingly:
+   - Cache (TTL)
+   - DB
+   - Vector DB
+
+5. Retrieve relevant memory
+6. Inject into prompt
+7. LLM generates response
+8. Update memory again
+
+Short-Term Memory:
+  → Redis / Cache
+  → TTL: 5–30 mins
+
+Factual Memory:
+  → MongoDB / SQL
+  → Permanent
+
+Episodic Memory:
+  → Logs / DB
+  → Time-series
+
+Semantic Memory:
+  → Vector DB (Pinecone / FAISS)
+  → Embeddings
+
+  
+<!--  -->
+
